@@ -40,9 +40,6 @@
 	</developers>
 	<modules>
 		<module>jena-graphremap</module>
-<!--
-		<module>jena-graphremap-bom</module>
--->
 		<module>jena-graphremap-pkg-fuseki-plugin</module>
 	</modules>
 	<properties>
