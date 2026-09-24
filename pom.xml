@@ -42,8 +42,8 @@
 		<module>jena-graphremap</module>
 <!--
 		<module>jena-graphremap-bom</module>
-		<module>jena-graphremap-pkg-fuseki-plugin</module>
 -->
+		<module>jena-graphremap-pkg-fuseki-plugin</module>
 	</modules>
 	<properties>
 		<jena.version>6.3.0-SNAPSHOT</jena.version>
