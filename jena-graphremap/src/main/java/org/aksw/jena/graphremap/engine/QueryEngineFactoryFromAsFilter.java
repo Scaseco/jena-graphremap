@@ -2,7 +2,7 @@ package org.aksw.jena.graphremap.engine;
 
 import java.util.Map;
 
-import org.aksw.jena.graphremap.dataset.DatasetGraphFromAsFilter;
+import org.aksw.jena.graphremap.dataset.DatasetGraphGraphRemap;
 import org.aksw.jena.graphremap.util.DynamicDatasetUtils;
 import org.apache.jena.atlas.lib.Pair;
 import org.apache.jena.query.Query;
@@ -24,7 +24,7 @@ public class QueryEngineFactoryFromAsFilter
 
     @Override
     public boolean accept(Query query, DatasetGraph dataset, Context context) {
-        return DynamicDatasetUtils.unwrap(dataset) instanceof DatasetGraphFromAsFilter;
+        return DynamicDatasetUtils.unwrap(dataset) instanceof DatasetGraphGraphRemap;
     }
 
     @Override
@@ -33,7 +33,7 @@ public class QueryEngineFactoryFromAsFilter
         Query effectiveQuery = effective.getLeft();
         DatasetGraph affectiveDataset = effective.getRight();
 
-        DatasetGraphFromAsFilter wrapper = (DatasetGraphFromAsFilter)affectiveDataset;
+        DatasetGraphGraphRemap wrapper = (DatasetGraphGraphRemap)affectiveDataset;
         DatasetGraph base = wrapper.getBase();
         Map<String, Expr> remap = wrapper.getGraphToExpr();
 

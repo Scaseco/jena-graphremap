@@ -1,7 +1,7 @@
 package org.aksw.jena.graphremap.init;
 
-import org.aksw.jena.graphremap.assembler.DatasetAssemblerFromAsFilter;
-import org.aksw.jena.graphremap.assembler.FromAsFilterVocab;
+import org.aksw.jena.graphremap.assembler.DatasetAssemblerGraphRemap;
+import org.aksw.jena.graphremap.assembler.GraphRemapVocab;
 import org.aksw.jena.graphremap.engine.QueryEngineFactoryFromAsFilter;
 import org.apache.jena.assembler.Assembler;
 import org.apache.jena.assembler.assemblers.AssemblerGroup;
@@ -10,7 +10,7 @@ import org.apache.jena.sparql.core.assembler.DatasetAssembler;
 import org.apache.jena.sparql.engine.QueryEngineRegistry;
 import org.apache.jena.sys.JenaSubsystemLifecycle;
 
-public class FromAsFilterInit
+public class InitJenaGraphRemap
     implements JenaSubsystemLifecycle
 {
     public static final int LEVEL = 2345;
@@ -34,11 +34,10 @@ public class FromAsFilterInit
 
     public static void init() {
         QueryEngineRegistry.addFactory(new QueryEngineFactoryFromAsFilter());
-        // JenaPluginUtils.registerResourceClasses(GraphAlias.class, FromAsFilterRes.class);
         registerWith(Assembler.general());
     }
 
     static void registerWith(AssemblerGroup g) {
-        AssemblerUtils.register(g, FromAsFilterVocab.DatasetGraphRemap, new DatasetAssemblerFromAsFilter(), DatasetAssembler.getGeneralType());
+        AssemblerUtils.register(g, GraphRemapVocab.DatasetGraphRemap, new DatasetAssemblerGraphRemap(), DatasetAssembler.getGeneralType());
     }
 }

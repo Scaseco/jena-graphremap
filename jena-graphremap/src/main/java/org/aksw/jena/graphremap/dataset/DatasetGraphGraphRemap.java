@@ -9,12 +9,12 @@ import org.apache.jena.sparql.expr.Expr;
 
 /** This wrapper does not contain any custom logic. It is just a marker that
  * gets picked up by {@link QueryEngineFactoryFromAsFilter}. */
-public class DatasetGraphFromAsFilter
+public class DatasetGraphGraphRemap
     extends DatasetGraphWrapper
 {
     protected Map<String, Expr> graphToExpr;
 
-    public DatasetGraphFromAsFilter(DatasetGraph dsg, Map<String, Expr> graphToExpr) {
+    public DatasetGraphGraphRemap(DatasetGraph dsg, Map<String, Expr> graphToExpr) {
         super(dsg);
         this.graphToExpr = graphToExpr;
     }

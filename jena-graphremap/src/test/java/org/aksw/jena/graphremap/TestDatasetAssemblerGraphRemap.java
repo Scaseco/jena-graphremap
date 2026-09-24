@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-public class TestDatasetAssemblerFromAsFilter {
+public class TestDatasetAssemblerGraphRemap {
 
     // Initialized/destroyed by beforeClass/afterClass methods
     static Path tdb2TmpFolder;
@@ -87,21 +87,21 @@ public class TestDatasetAssemblerFromAsFilter {
     @BeforeAll
     public static void beforeClass() throws Exception {
         tdb2TmpFolder = Files.createTempDirectory("jena_from-enhancer_tdb2").toAbsolutePath();
-        String assemblerStr = String.join("\n",
-                "PREFIX ja: <http://jena.hpl.hp.com/2005/11/Assembler#>",
-                "PREFIX fe: <http://jena.apache.org/from-enhancer#>",
-                "PREFIX xdt: <http://jsa.aksw.org/dt/sparql/>",
-                "PREFIX tdb2: <http://jena.apache.org/2016/tdb#>",
-                "<urn:example:root> a fe:DatasetFromAsFilter ; ja:baseDataset <urn:example:base> .",
-                "<urn:example:root> fe:alias [ fe:graph <urn:example:all> ; fe:expr 'true'^^xdt:expr] .",
-                "<urn:example:base> a tdb2:DatasetTDB2 ."
-                // "<urn:example:base> a ja:MemoryDataset ."
-            );
+        String assemblerStr = """
+            PREFIX ja: <http://jena.hpl.hp.com/2005/11/Assembler#>
+            PREFIX jgr: <https://w3id.org/aksw/jena/graphremap#>
+            PREFIX tdb2: <http://jena.apache.org/2016/tdb#>
+            <urn:example:root> a jgr:DatasetGraphRemap ; ja:dataset <urn:example:base> .
+            <urn:example:root> jgr:alias [ jgr:graph <urn:example:all> ; jgr:expr 'true' ] .
+            <urn:example:base> a tdb2:DatasetTDB2 .
+            # "<urn:example:base> a ja:MemoryDataset .
+            """;
 
-        String dataStr = String.join("\n",
-                "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>",
-                "<urn:example:g1> { <urn:example:s> a <urn:example:class> ; rdfs:label \"s\" }",
-                "<urn:example:g2> { <urn:example:s> a <urn:example:class> ; rdfs:label \"s\" }");
+        String dataStr = """
+            PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+            <urn:example:g1> { <urn:example:s> a <urn:example:class> ; rdfs:label "s" }
+            <urn:example:g2> { <urn:example:s> a <urn:example:class> ; rdfs:label "s" }
+            """;
 
         Model confModel = ModelFactory.createDefaultModel();
         RDFDataMgr.read(confModel, new StringReader(assemblerStr), null, Lang.TURTLE);

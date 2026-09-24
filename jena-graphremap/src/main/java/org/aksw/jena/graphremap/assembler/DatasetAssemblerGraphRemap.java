@@ -5,9 +5,9 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.aksw.jena.graphremap.dataset.DatasetGraphFromAsFilter;
-import org.aksw.jena.graphremap.model.FromAsFilterRes;
-import org.aksw.jena.graphremap.model.GraphAlias;
+import org.aksw.jena.graphremap.dataset.DatasetGraphGraphRemap;
+import org.aksw.jena.graphremap.model.GraphRemapConfig;
+import org.aksw.jena.graphremap.model.GraphAliasEntry;
 import org.apache.jena.assembler.Assembler;
 import org.apache.jena.assembler.exceptions.AssemblerException;
 import org.apache.jena.enhanced.EnhGraph;
@@ -17,12 +17,12 @@ import org.apache.jena.sparql.core.DatasetGraph;
 import org.apache.jena.sparql.core.assembler.DatasetAssembler;
 import org.apache.jena.sparql.expr.Expr;
 
-public class DatasetAssemblerFromAsFilter
+public class DatasetAssemblerGraphRemap
     extends DatasetAssembler
 {
     @Override
     public DatasetGraph createDataset(Assembler a, Resource rawRoot) {
-        FromAsFilterRes root = new FromAsFilterRes(rawRoot.asNode(), (EnhGraph)rawRoot.getModel());
+        GraphRemapConfig root = new GraphRemapConfig(rawRoot.asNode(), (EnhGraph)rawRoot.getModel());
 
         Resource baseDatasetRes = root.getBaseDataset();
         Objects.requireNonNull(baseDatasetRes, "No ja:dataset specified on " + root);
@@ -35,15 +35,15 @@ public class DatasetAssemblerFromAsFilter
         Dataset baseDataset = (Dataset)obj;
 
         Map<String, Expr> remap = null;
-        Set<GraphAlias> aliases = root.listMappings().toSet();
+        Set<GraphAliasEntry> aliases = root.listAliases().toSet();
         if (!aliases.isEmpty()) {
             remap = aliases.stream().collect(Collectors.toMap(
-                GraphAlias::getGraphIri,
-                GraphAlias::getExpr
+                GraphAliasEntry::getGraphIri,
+                GraphAliasEntry::getExpr
             ));
         }
 
-        DatasetGraph result = new DatasetGraphFromAsFilter(baseDataset.asDatasetGraph(), remap);
+        DatasetGraph result = new DatasetGraphGraphRemap(baseDataset.asDatasetGraph(), remap);
         return result;
     }
 
