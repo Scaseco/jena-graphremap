@@ -8,12 +8,12 @@
 	<version>0.9.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<name>Jena Inf - Parent</name>
-	<description>SameAs Inferencer for Apache Jena - ARQ and Fuseki</description>
+	<name>Jena Graph Remap - Parent</name>
+	<description>Graph Remapping for Apache Jena</description>
 
-	<url>https://github.com/Scaseco/jena-inf</url>
+	<url>https://github.com/Scaseco/jena-graphremap</url>
 	<issueManagement>
-		<url>https://github.com/Scaseco/jena-inf/issues</url>
+		<url>https://github.com/Scaseco/jena-graphremap/issues</url>
 		<system>GitHub</system>
 	</issueManagement>
 	<licenses>
@@ -24,10 +24,10 @@
 		</license>
 	</licenses>
 	<scm>
-		<url>https://github.com/Scaseco/jena-inf</url>
-		<connection>scm:git:git://github.com/Scaseco/jena-inf.git</connection>
+		<url>https://github.com/Scaseco/jena-graphremap</url>
+		<connection>scm:git:git://github.com/Scaseco/jena-graphremap.git</connection>
 		<developerConnection>
-			scm:git:git@github.com:Scaseco/jena-inf.git</developerConnection>
+			scm:git:git@github.com:Scaseco/jena-graphremap.git</developerConnection>
 		<tag>HEAD</tag>
 	</scm>
 	<developers>
@@ -109,8 +109,8 @@
 			</dependency>
 
 			<dependency>
-				<groupId>org.aksw.jena.inf</groupId>
-				<artifactId>jena-inf-light</artifactId>
+				<groupId>org.aksw.jena.graphremap</groupId>
+				<artifactId>jena-graphremap</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 		</dependencies>
